@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Octopus::Application.config.secret_token = '8afbc7a18fcf7ed7a3053e8e69dbf604fb094fd09177012cd6245158b5ec34a97c2b8fcf416488c1d8314897d063848e7ab96d1d45ba537671c83198a7fea830'
+Octopus::Application.config.secret_token = 'bd023ed3931ad3c5376292140ee38908db2b9eb9fb9c2127a76e29e1d8e6f4dc0b0d14cd83f0a132fc19b55251b365606335cc70244d684ea5a4d96daa06a56a'
