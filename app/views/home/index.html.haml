@@ -1,4 +1,28 @@
-%h3 Home
-- @users.each do |user|
-  %p
-    User: #{link_to user.name, user}
+%h3 Data Processing
+
+==        小区信息数据<input type="file" id="BTSFiles" name="files[]" multiple />
+==        位置更新数据<input type="file" id="LUFiles" name="files[]" multiple />
+==        <output id="list"></output>
+==        <input value="显示全部" type="button" onclick="ShowAll()" />
+==        <input value="上一步" type="button" onclick="StepPre()" />
+==        <input value="下一步" type="button" onclick="StepNext()" />
+==        <div>
+==            数据清洗
+==            <input value="逐段显示" type="button" onclick="NextSegment()" />
+==            【1 分段】
+==            容差<input style="width:20px" value="2" type="text" id="RAccuracy" />KM
+==            <input value="距离分段" type="button" onclick="SplitDataSegment()" />
+==            容差<input style="width:20px" value="5" type="text" id="RAccuracy" />分钟
+==            <input value="时间分段" type="button" onclick="SplitDataSegmentbyTime()" />
+==            【2 去重】
+==            <input value="900/1800" type="button" onclick="ClearDataFrequency()" />
+==            <input value="PingPong" type="button" onclick="ClearDataPingpong()" />
+==            <input value="Signal" type="button" onclick="ClearDataSignal()" />
+==
+==        </div>
+
+
+==        <div style="width:1160px;height:700px;border:1px solid gray" id="container"></div>
+==        <div <span id="Output"> </span>Output</div>
+==        <div <span id="results"> </span>路线信息</div>
+==        <div <span id="routedata"> </span>路线数据</div>
