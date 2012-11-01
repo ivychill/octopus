@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+    <HEAD>
+        <TITLE> New Document </TITLE>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        <META NAME="Author" CONTENT="">
+            <META NAME="Keywords" CONTENT="">
+                <META NAME="Description" CONTENT="">
+                    <style type="text/css">
+                        html,body{ border:0px; margin:0px; padding:0px;}
+                        .divGlobal,.DivTop{min-width: 760px;width: expression(document.body.clientWidth < 760? "760px": "100%" )/*最小宽度设置*/;width:100%;}
+                        .DivTop,.DivMainLeft,.DivMainRight {border:0px solid #ff0000; }
+                        .DivMainLeft{float:left; width:602px}
+                        .DivMainRight{margin-left:606px;}
+                        .DivTop{ height:40px;}
+                        .DivMainLeft,.DivMainRight,.divGlobal{height:expression( document.body.clientHeight - 80 + "px")}
+                        </style>
+                    </HEAD>
+    <BODY>
+        <script>
+            // alert(document.body.clientWidth);
+            //alert(document.body.clientWidth < 760? "760px": "100%" );
+            </script>
+        <div class="DivTop"><center>路径判断演示系统V0.1</center></div>
+        <div class="divGlobal">
+            <div class="DivMainLeft">
+                <div style="width:600px;height:600px;border:1px solid gray" id="mapcontainer"></div>
+                
+            </div>
+            
+            
+            <div class="DivMainRight">
+                <div> <font  color="#FF0000"> 基础数据加载 </font></div>
+                <div>小区数据(data.txt)<input type="file" id="BTSFiles" name="files[]" multiple /></div>
+                <div>路径数据(pathdata.txt)<input type="file" id="PATHFiles" name="files[]" multiple /></div>
+                <div> --------------------------------------- </div>
+
+                <div> <font  color="#FF0000"> 测试用例加载 </font></div>
+                <div>位置更新数据(*.lac)<input type="file" id="LUFiles" name="files[]" multiple /></div>
+                <div> 原始数据显示 </div>
+                <input value="显示全部" type="button" onclick="ShowAll()" />
+                <input value="上一步" type="button" onclick="StepPre()" />
+                <input value="下一步" type="button" onclick="StepNext()" />
+                <div>
+                    <div> ---------------------------------------------------------------------- </div>
+                    <div> ---------------------------------------------------------------------- </div>
+                    
+                    <div> <font  color="#FF0000"> 数据清洗/处理 </font></div>
+                    <!--
+                    <input value="逐段显示" type="button" onclick="NextSegment()" />
+                    <input value="逐点显示" type="button" onclick="NextSegPoint()" />
+                    
+                    
+                    <div> 【1 分段】 </div>
+
+                    <input value="路线分段" type="button" onclick="SplitDataSegmentWithRoad()" />
+                    |容差<input style="width:20px" value="4" type="text" id="RAccuracy" />KM
+                    <input value="距离分段" type="button" onclick="SplitDataSegment()" />
+                    |容差<input style="width:20px" value="15" type="text" id="TAccuracy" />分钟
+                    <input value="时间分段" type="button" onclick="SplitDataSegmentbyTime()" />
+                    
+                    <div> 【2 去重】 </div>
+
+                    <input value="900/1800" type="button" onclick="ClearDataFrequency()" />
+                    <input value="PingPong" type="button" onclick="ClearDataPingpong()" />
+                    <input value="Signal" type="button" onclick="ClearDataSignal()" />
+                     <div> 【3 方向】 </div>
+                    <input value="方向切分" type="button" onclick="DirectionMatchAndClear()" />
+                    
+                </div>
+                <div>
+                    <input value="生成最终结论" type="button" onclick="MergePaths()" />
+                    
+                    <input value="拟合" type="button" onclick="matchRoad()" />
+                    <input value="测试按钮" type="button" onclick="TestFunction()" />
+                     
+                    <div> --------------------------------------- </div>
+                     -->
+                    <input value="数据清洗和处理" type="button" onclick="GetResult()" />
+                    <div></div>
+                    
+                    <div> <font  color="#FF0000"> 过程结果显示 </font></div>
+                    <input value="逐段显示" type="button" onclick="RouteNextSegment()" />
+                    <input value="逐点显示" type="button" onclick="RouteNextSegPoint()" />
+
+
+                    
+                </div>
+                <div> ---------------------------------------------------------------------- </div>
+                <div> ---------------------------------------------------------------------- </div>
+
+                <table  id="RouteList" >   </table>
+                <div> ---------------------------------------------------------------------- </div>
+                <div> ---------------------------------------------------------------------- </div>
+
+                <!--div <span id="Output" >  </span> </div-->
+                <div  id="Output" >   </div>
+                <!--p   id="Output" >  lalalal </p-->
+                <!--div <span id="results"> </span>路线信息</div>
+                <div <span id="routedata"> </span>路线数据</div-->
+                
+
+
+            
+            </div>
+        </div>
+    </BODY>
+</HTML>
