@@ -47,6 +47,7 @@ class User
   index({ email: 1 }, { unique: true, background: true })
   field :name, :type => String
   validates_presence_of :name
+  validates_uniqueness_of :name, :email, :case_sensitive => false
   attr_accessible :role_ids, :as => :admin
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :created_at, :updated_at
 end

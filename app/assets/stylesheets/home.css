@@ -1,0 +1,12 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body { border:0px; margin:0px; padding:0px;}
+.divGlobal,.DivTop {min-width: 760px;width: expression(document.body.clientWidth < 760? "760px": "100%" )/*最小宽度设置*/;width:100%;}
+.DivTop {border:0px solid #ff0000; color:red; font-size:larger; font-weight:bold}
+.DivMainLeft,.DivMainRight {border:0px solid #ff0000}
+.DivMainLeft {float:left; width:600px}
+.DivMainRight {margin-left:600px;}
+.DivTop{ height:40px;}
+.DivMainLeft,.DivMainRight,.divGlobal{height:expression( document.body.clientHeight - 80 + "px")}

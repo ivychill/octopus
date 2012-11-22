@@ -3,6 +3,8 @@
   %head
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
       %title= content_for?(:title) ? yield(:title) : "Octopus"
+      == <link href="roadclouding.png" rel="Shortcut Icon">
+      == <link href="roadclouding.png" rel="Bookmark">
       %meta{:content => content_for?(:description) ? yield(:description) : "Octopus", :name => "description"}
         == <script src="http://api.map.baidu.com/api?v=1.3"></script>
         = stylesheet_link_tag "application", :media => "all"

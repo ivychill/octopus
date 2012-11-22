@@ -3,8 +3,6 @@
 ShowAll = function ()
 {
     map.clearOverlays();
-    //luArray = readLocationUpdateData(this.result);
-    //var btsCount = luArray.length;
     for (var i=0; i<luArray.length; i++)
     {
         
@@ -18,7 +16,6 @@ ShowAll = function ()
                 btscircle.setFillOpacity(0.2);
                 map.addOverlay(btscircle);
                 
-                //var point = new BMap.Point(116.404, 39.915);
                 var marker = new BMap.Marker(btspoint);  // 创建标注
                 map.addOverlay(marker);              // 将标注添加到地图中
                 
@@ -110,12 +107,12 @@ function NextSegment()
     segPntIndex = 0;
 
     
-    if (segIndex >= gSegmentArray.length)
+    if (segIndex >= gTempSegmentArray.length)
     {
         segIndex = 0;
     }
     
-    var pointArray = gSegmentArray[segIndex];
+    var pointArray = gTempSegmentArray[segIndex];
     
     document.getElementById("Output").innerHTML = "";//"<br/>处理路名:"+thisName;
     
@@ -133,12 +130,6 @@ function NextSegment()
         
         var label = new BMap.Label(j+":"+pointArray[j].cellid,{offset:new BMap.Size(-40,-20)});
         marker.setLabel(label);
-        document.getElementById("Output").innerHTML += "<br/>"+j+":"+pointArray[j].cellid;
-        for (var ni=0; ni<pointArray[j].roadNames.length; ni++)
-        {
-            document.getElementById("Output").innerHTML += "<br/>"+pointArray[j].roadNames[ni];
-        }
-        
         
     }
     
@@ -152,15 +143,6 @@ function matchRoad()
 {
     map.clearOverlays();
     
-    //    for (var i=0; i < gSegmentArray.length; i++)
-    //    {
-    //        var pointArray = gSegmentArray[i];
-    //        for (var j=0; j<pointArray.length;j++)
-    //        {
-    //
-    //            var btspoint = new BMap.Point(pointArray[j].lng, pointArray[j].lat);
-    //        }
-    //    }
     
     var matchIndex = 0;
     
@@ -168,17 +150,17 @@ function matchRoad()
     
     if (matchIndex < 0)
     {
-        matchIndex = gSegmentArray.length - 1;
+        matchIndex = gTempSegmentArray.length - 1;
     }
     
-    if (matchIndex >= gSegmentArray.length)
+    if (matchIndex >= gTempSegmentArray.length)
     {
         matchIndex = 0;
     }
     
     
     
-    var pointArray = gSegmentArray[matchIndex];
+    var pointArray = gTempSegmentArray[matchIndex];
     
     var pCnt = pointArray.length;
     if (pCnt > 1)
@@ -239,15 +221,15 @@ function NextSegPoint()
     
     if (matchIndex < 0)
     {
-        matchIndex = gSegmentArray.length - 1;
+        matchIndex = gTempSegmentArray.length - 1;
     }
     
-    if (matchIndex >= gSegmentArray.length)
+    if (matchIndex >= gTempSegmentArray.length)
     {
         matchIndex = 0;
     }
     
-    var pointArray = gSegmentArray[matchIndex];
+    var pointArray = gTempSegmentArray[matchIndex];
     
     
     if (segPntIndex >= pointArray.length)
@@ -283,20 +265,6 @@ function NextSegPoint()
 function TestFunction(index)
 {
     
-//    var ttbts = new BTSSite(11,22,4,"cellliddd");
-//    
-//    var newt = ttbts.Clone();
-//    
-//    newt.cellid = "DDDDD";
-//    ttbts.lng = 111.111;
-//    
-//    document.getElementById("Output").innerHTML = "";//"道路名" + j + ";";
-//    document.getElementById("Output").innerHTML += "</br>Old="+ttbts.cellid;
-//    document.getElementById("Output").innerHTML += "</br>new="+newt.cellid;
-//    document.getElementById("Output").innerHTML += "</br>new="+newt.raid;
-//    document.getElementById("Output").innerHTML += "</br>new="+newt.lng;
-
-    //
     var i =2;
     
     var ouHtml = new String();
@@ -328,7 +296,8 @@ function TestAction(index)
 function DisplayRoute(index)
 {
     
-    var segmentList = gRoutesArray[index];
+    //var segmentList = gRoutesArray[index];
+    var segmentList = gPotentialPathLinks[index].segmentInfoList;
     segCnt = segmentList.length;
     
     map.clearOverlays();
@@ -338,8 +307,8 @@ function DisplayRoute(index)
 
     for (var i = 0; i<segCnt; i++)
     {
-        var pointArray = segmentList[i];
-        
+        //var pointArray = segmentList[i];
+        var pointArray = segmentList[i].lacList;
         
         for (var j=0; j<pointArray.length;j++)
         {
@@ -367,16 +336,18 @@ function RouteNextSegment()
     map.clearOverlays();
     segPntIndex = 0;
     
-    var segmentList = gRoutesArray[routeIndex];
+    //var segmentList = gRoutesArray[routeIndex];
+    var segmentList = gPotentialPathLinks[routeIndex].segmentInfoList;
     
     if (segIndex >= segmentList.length)
     {
         segIndex = 0;
     }
     
-    var pointArray = segmentList[segIndex];
+    //var pointArray = segmentList[segIndex];
+    var pointArray = segmentList[segIndex].lacList;
     
-    document.getElementById("Output").innerHTML = "";//"<br/>处理路名:"+thisName;
+    document.getElementById("Output").innerHTML = ""+segmentList[segIndex].rdName;//"<br/>处理路名:"+thisName;
     
     for (var j=0; j<pointArray.length;j++)
     {
@@ -392,11 +363,6 @@ function RouteNextSegment()
         
         var label = new BMap.Label(j+":"+pointArray[j].cellid,{offset:new BMap.Size(-40,-20)});
         marker.setLabel(label);
-        document.getElementById("Output").innerHTML += "<br/>"+j+":"+pointArray[j].cellid;
-        for (var ni=0; ni<pointArray[j].roadNames.length; ni++)
-        {
-            document.getElementById("Output").innerHTML += "<br/>"+pointArray[j].roadNames[ni];
-        }
         
         
     }
@@ -410,7 +376,8 @@ function RouteNextSegPoint()
 {
     map.clearOverlays();
     
-    var segmentList = gRoutesArray[routeIndex];
+    //var segmentList = gRoutesArray[routeIndex];
+    var segmentList = gPotentialPathLinks[routeIndex].segmentInfoList;
 
     
     var matchIndex = 0;
@@ -427,7 +394,8 @@ function RouteNextSegPoint()
         matchIndex = 0;
     }
     
-    var pointArray = segmentList[matchIndex];
+    //var pointArray = segmentList[matchIndex];
+    var pointArray = segmentList[matchIndex].lacList;
 
     
     if (segPntIndex >= pointArray.length)
@@ -443,7 +411,6 @@ function RouteNextSegPoint()
     btscircle.setFillOpacity(0.2);
     map.addOverlay(btscircle);
     
-    //var point = new BMap.Point(116.404, 39.915);
     var marker = new BMap.Marker(btspoint);  // 创建标注
     map.addOverlay(marker);              // 将标注添加到地图中
     
@@ -460,21 +427,188 @@ function RouteNextSegPoint()
 }
 
 
+function ShowSpeed()
+{
+    
+    var segmentList = gPotentialPathLinks[routeIndex].segmentInfoList;
+    
+    var matchIndex = 0;
+    
+    matchIndex = segIndex - 1;
+    
+    if (matchIndex < 0)
+    {
+        matchIndex = segmentList.length - 1;
+    }
+    
+    if (matchIndex >= segmentList.length)
+    {
+        matchIndex = 0;
+    }
 
-//Example
-//function Car(color,doors)
-//{
-//    this.color=color;
-//    this.doors=doors;
-//    this.drivers=new Array("Tom","Jerry");
-//    this.showColor = function() {
-//        return this.color;
-//    }
-//}
-//
-//function testvvt()
-//{
-//    alert( "dkdkdk");
-//}
+    var speedArray = segmentList[matchIndex].speedList;
+    
+    if (!speedArray && speedArray.length<=0)
+    {
+        return;
+    }
+    
+    
+    for (var j=0; j<speedArray.length;j++)
+    {
+        var stMapPoint = new BMap.Point(speedArray[j].stLng, speedArray[j].stLat);
+        var edMapPoint = new BMap.Point(speedArray[j].edLng, speedArray[j].edLat);
+        
+        var SpPoints = getRoadSegPointsByStartEnd(stMapPoint, edMapPoint, segmentList[matchIndex].rdName);
+        var speed4Mapval = getSpeedInfo4Map(speedArray[j].speed);
+        var polyline = new BMap.Polyline(SpPoints, {strokeColor:speed4Mapval.color, strokeWeight:speed4Mapval.lineWeight, strokeOpacity:1.0});
+        map.addOverlay(polyline);
+    }
+
+    
+}
+
+function ShowSpeedwitStat()
+{
+    
+    map.clearOverlays();
+    
+    combineTraffic();
+    
+    var rdCnt = gPathTraffic.length;
+    document.getElementById("RouteList").innerHTML = "";//"<br/>"+j+": "+speedArray[j].speed;//"<br/>处理路名:"+thisName;
+    document.getElementById("Output").innerHTML = "";
+    
+    for (var i=0; i<rdCnt; i++)
+    {
+        var rdName = gPathTraffic[i].rdName;
+        var pntList = getRoadPointsbyName(rdName);
+        var periodCnt = gPathTraffic[i].TraffPeriodList.length;
+        
+        for (var j=0; j<periodCnt; j++)
+        {
+            var periodItem = gPathTraffic[i].TraffPeriodList[j];
+            var segCnt = periodItem.segTrafficList.length;
+            
+            
+            for (var k=0; k<segCnt; k++)
+            {                
+                var speed4Mapval = getSpeedInfo4Map(periodItem.segTrafficList[k].avgSpeed);
+
+                var trafficPntList = new Array();
+                for (var l=periodItem.segTrafficList[k].stIndex; l<=periodItem.segTrafficList[k].edIndex; l++)
+                {
+                    trafficPntList.push(pntList[l]);
+                }
+                
+                var polyline = new BMap.Polyline(trafficPntList, {strokeColor:speed4Mapval.color, strokeWeight:speed4Mapval.lineWeight, strokeOpacity:1.0});
+                map.addOverlay(polyline);
+                
+                var speedDiscr = "";
+                if (speed4Mapval.level == 1)
+                {
+                    var speedDiscr = "拥堵(<30KMPH)";
+                }
+                if (speed4Mapval.level == 2)
+                {
+                    var speedDiscr = "车多(30-60KMPH)";
+                }
+                if (speed4Mapval.level == 3)
+                {
+                    var speedDiscr = "畅通(>60KMPH)";
+                }
+
+                var TmpDT = new Date(periodItem.periodBegin);
+                var timeStr = TmpDT.getFullYear() + "-"+TmpDT.getMonth()+"-"+TmpDT.getDate()+" "+TmpDT.getHours()+":"+TmpDT.getMinutes()+":"+TmpDT.getSeconds();
+                
+
+                var lastPnt = trafficPntList.length - 1;
+                document.getElementById("RouteList").innerHTML += "<br/>"+gPathTraffic[i].rdName+", "+speedDiscr;
+                document.getElementById("RouteList").innerHTML += "<br/>From:"+trafficPntList[0].lng.toFixed(6)+","+trafficPntList[0].lat.toFixed(6)+" To:"+trafficPntList[lastPnt].lng.toFixed(6)+","+trafficPntList[lastPnt].lat.toFixed(6);
+
+            }
+            
+        }
+
+    }
+    
+}
+
+
+
+function getNearestBTS(locPoint)
+{
+    var nearestBTS = 0;
+    var nearestDist = 9999999999.9;
+    for (var i=0; i<btsArray.length; i++)
+    {
+        var btsInfo = btsArray[i];
+        var btspoint = new BMap.Point(btsInfo.lng, btsInfo.lat);
+        var retdst = map.getDistance(btspoint, locPoint);
+        
+        if (nearestDist*1.0 >  retdst)
+        {
+            nearestDist = retdst;
+            nearestBTS = btsInfo;
+        }
+    }
+
+    return nearestBTS;
+}
+
+
+function drawBTS(inputBtsInfo, title)
+{
+    var btspoint = new BMap.Point(inputBtsInfo.lng, inputBtsInfo.lat);
+    var btscircle = new BMap.Circle(btspoint,inputBtsInfo.raid*1000);
+    btscircle.setFillOpacity(0.2);
+    map.addOverlay(btscircle);
+    
+    var marker = new BMap.Marker(btspoint);  // 创建标注
+    map.addOverlay(marker);              // 将标注添加到地图中
+    
+    var label = new BMap.Label(title,{offset:new BMap.Size(-40,-20)});
+    marker.setLabel(label);
+}
+
+
+function CreateSampleSegment()
+{
+    map.clearOverlays();
+
+    var sampleSpeed = document.getElementById("SPEED").value;
+    var sampleRdID = document.getElementById("ROADID").value;
+    var userID = document.getElementById("USERID").value;
+    var iradius = document.getElementById("DELETAL").value;
+    var roadPnts = gPathArray[sampleRdID];
+    
+    //var stMapPnt = new BMap.Point(startPoint.lng, startPoint.lat);
+    var stDistInfo = getNearestDistanceOfRoad(sampleSt, roadPnts);
+    
+    //var edMapPnt = new BMap.Point(endPoint.lng, endPoint.lat);
+    var edDistInfo = getNearestDistanceOfRoad(sampleEd, roadPnts);
+    
+    document.getElementById("Output").innerHTML = "<br/>"+stDistInfo.index+":"+edDistInfo.index+":"+ roadPnts.length;
+
+    getSamplePoints(stDistInfo.index, edDistInfo.index, roadPnts, sampleSpeed, "2012-11-20 15:30:00", userID, iradius);
+    
+
+}
+
+function AddSelectMarker()
+{
+    map.clearOverlays();
+    AddStPoint();
+    AddEdPoint();
+}
+
+
+
+function ClearOverlayOnMap()
+{
+    map.clearOverlays();
+
+    
+}
 
 

@@ -8,13 +8,15 @@ onRouteMarkersSet = function (pois)
     start.addEventListener("dragend",
                            function(e)
                            {
-                           map.clearOverlays();
-                           driving.search(e.point,end.getPosition());
+                           //map.clearOverlays();
+                           //driving.search(e.point,end.getPosition());
+                           sampleSt = e.point;
                            }
                            );
     end.addEventListener("dragend",function(e){
-                         map.clearOverlays();
-                         driving.search(start.getPosition(),e.point);
+                         //map.clearOverlays();
+                         //driving.search(start.getPosition(),e.point);
+                         sampleEd = e.point;
                          });
 }
 
@@ -40,8 +42,9 @@ onDrivingSearchComplete =  function(results)
 
         }
 
-        //document.getElementById("routedata").innerHTML = s.join("<br/>");
+        document.getElementById("routedata").innerHTML = s.join("<br/>");
     }
 }
+
 
 
